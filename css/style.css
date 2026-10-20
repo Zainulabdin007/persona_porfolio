@@ -29,10 +29,17 @@ body{
 /* ============ BACKGROUND LAYERS ============ */
 #bg{position:fixed;inset:-6vmax;z-index:0;pointer-events:none;}
 .bg-layer{position:absolute;inset:0;}
-#bg-stripes{
+#bg-stripes{overflow:hidden;}
+.stripe-drift{
+  position:absolute;top:0;left:0;height:100%;width:calc(100% + 560px);
   background:repeating-linear-gradient(115deg,
     var(--red) 0 46px, var(--red-deep) 46px 52px,
     var(--red) 52px 120px, var(--stripe) 120px 126px);
+  animation:stripeDrift 22s linear infinite;
+}
+@keyframes stripeDrift{
+  from{transform:translate3d(0,0,0);}
+  to{transform:translate3d(-556.1px,0,0);}
 }
 #bg-halftone{overflow:hidden;}
 .halftone-drift{
@@ -45,8 +52,13 @@ body{
   from{transform:translate3d(0,0,0);}
   to{transform:translate3d(-140px,140px,0);}
 }
+html.page-hidden .stripe-drift,
 html.page-hidden .halftone-drift,
-html.page-hidden .bg-star{animation-play-state:paused;}
+html.page-hidden .bg-star,
+body.art-covered .stripe-drift,
+body.art-covered .bg-star{animation-play-state:paused;}
+body.art-covered #bg-stripes,
+body.art-covered .bg-star{visibility:hidden;}
 #bg-vignette{
   background:radial-gradient(ellipse at 32% 40%, transparent 30%, rgba(0,0,0,.72) 100%);
 }

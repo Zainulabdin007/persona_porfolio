@@ -226,6 +226,11 @@ const View = {
       return document.getElementById("art-" + screen + (p3 ? "-p3" : ""));
     };
 
+    const syncBackdrop = () => {
+      const art = artForScreen();
+      document.body.classList.toggle("art-covered", !!(art && art.isConnected));
+    };
+
     const paint = () => {
       stripes.style.transform = `translate3d(${cx * 22}px, ${cy * 14}px, 0)`;
       halftone.style.transform = `translate3d(${cx * -34}px, ${cy * -22}px, 0)`;
@@ -259,7 +264,8 @@ const View = {
       requestAnimationFrame(loop);
     }, { passive: true });
 
-    const restyle = () => { if (!running) paint(); };
+    const restyle = () => { syncBackdrop(); if (!running) paint(); };
+    restyle();
     new MutationObserver(restyle).observe(document.body, {
       attributes: true, attributeFilter: ["data-screen"],
     });
