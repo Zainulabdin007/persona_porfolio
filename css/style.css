@@ -92,14 +92,17 @@ body[data-screen]:not([data-screen="home"]) #slash{
   border:0;cursor:pointer;font-family:inherit;
   background:#111;color:rgba(255,255,255,.42);
   font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;
-  padding:0;transform:translateX(-24px) skewX(-12deg);
+  padding:0;transform:translateX(-16px) skewX(-12deg);
   box-shadow:4px 4px 0 var(--black);
-  min-width:232px;overflow:hidden;
+  overflow:hidden;
 }
 #theme-toggle .theme-opt{
   position:relative;z-index:1;pointer-events:none;
-  padding:7px 12px;text-align:center;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:6px 8px;text-align:center;
 }
+#theme-toggle .theme-mark{height:24px;width:auto;display:block;flex:none;}
+#theme-toggle .theme-mark.p3{height:16px;filter:invert(1);}
 #theme-toggle .theme-knob{
   position:absolute;z-index:0;top:0;bottom:0;left:0;width:50%;
   background:var(--red);transform:translateX(0);

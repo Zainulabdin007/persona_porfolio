@@ -39,16 +39,20 @@
   #ph-theme{
     justify-self:end;position:relative;
     display:grid;grid-template-columns:1fr 1fr;align-items:stretch;
-    width:76px;height:28px;padding:0;border:0;background:#16161a;
+    width:auto;min-width:132px;height:32px;padding:0;border:0;background:#16161a;
     color:rgba(255,255,255,.45);font:inherit;font-size:12px;font-weight:800;
-    letter-spacing:.08em;cursor:pointer;
+    letter-spacing:.06em;cursor:pointer;
   }
   #ph-theme .ph-knob{
     position:absolute;left:0;top:0;width:50%;height:100%;background:var(--red);
     transition:transform .45s cubic-bezier(.2,.8,.2,1);
   }
   html[data-theme="p3"] #ph-theme .ph-knob{transform:translateX(100%);}
-  #ph-theme span[data-side]{position:relative;z-index:1;display:grid;place-items:center;}
+  #ph-theme span[data-side]{
+    position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:3px;padding:0 4px;
+  }
+  #ph-theme .theme-mark{height:18px;width:auto;display:block;flex:none;}
+  #ph-theme .theme-mark.p3{height:13px;filter:invert(1);}
   html[data-theme="p3"] #ph-theme [data-side="p3"],
   html:not([data-theme="p3"]) #ph-theme [data-side="p5"]{color:#fff;}
 
