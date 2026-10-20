@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ZAIN BUGHIO · PORTFOLIO</title>
 <meta name="description" content="Zain Bughio, University of Waterloo Math. Incoming Software Engineering Intern, Infrastructure at Super.com. Builds local AI systems, storage engines, and production infrastructure.">
 <link rel="canonical" href="https://zain-bughio.vercel.app/">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/phone.css">
 <script>
   (function () {
     try {
@@ -445,9 +446,306 @@
   </div>
 </div>
 
+<!-- Phone layout. Hidden on desktop; css/phone.css shows it only on a phone. -->
+<div id="phone" aria-hidden="true">
+  <header class="ph-bar">
+    <time id="ph-clock">--:--</time>
+    <span class="ph-owner">Zain</span>
+    <button id="ph-theme" type="button" aria-label="Switch to Persona 3">
+      <span class="ph-knob" aria-hidden="true"></span>
+      <span data-side="p5">P5</span>
+      <span data-side="p3">P3</span>
+    </button>
+  </header>
+
+  <div class="ph-view" id="ph-view">
+    <div class="ph-track" id="ph-track">
+
+      <section class="ph-panel" data-ph="home" aria-label="Phone home">
+        <div class="ph-home">
+          <p class="ph-kicker">University of Waterloo</p>
+          <h1>
+            <span class="ransom" data-ransom="ZAIN"></span>
+            <span class="ransom" data-ransom="BUGHIO"></span>
+          </h1>
+          <p class="ph-tag">I build infrastructure, local AI systems, and storage engines. Incoming <strong>Software Engineering Intern, Infrastructure</strong> at Super.com.</p>
+          <div class="ph-apps">
+            <button class="ph-app" type="button" data-ph-go="work" style="--rot:-2.5deg"><span>01</span><b>Work</b></button>
+            <button class="ph-app" type="button" data-ph-go="projects" style="--rot:1.5deg"><span>02</span><b>Projects</b></button>
+            <button class="ph-app" type="button" data-ph-go="lab" style="--rot:2deg"><span>03</span><b>Lab</b></button>
+            <button class="ph-app" type="button" data-ph-go="skills" style="--rot:-1.5deg"><span>04</span><b>Skills</b></button>
+            <button class="ph-app" type="button" data-ph-go="stats" style="--rot:1deg"><span>05</span><b>Stats</b></button>
+            <button class="ph-app" type="button" data-ph-go="about" style="--rot:-2deg"><span>06</span><b>About</b></button>
+            <button class="ph-app" type="button" data-ph-go="contact" style="--rot:2.5deg"><span>07</span><b>Contact</b></button>
+            <button class="ph-app" type="button" data-ph-go="credits" style="--rot:-1deg"><span>08</span><b>Credits</b></button>
+          </div>
+          <p class="ph-hint">Swipe to loop the file</p>
+        </div>
+      </section>
+
+      <section class="ph-panel" data-ph="work" aria-label="Work">
+        <div class="ph-scroll">
+          <header class="ph-head"><span class="ransom" data-ransom="WORK"></span></header>
+          <ol class="ph-time">
+            <li><b>2025</b><span>PixelsBoost</span><em>Full-stack</em></li>
+            <li><b>May 2026</b><span>WRHN</span><em>Network</em></li>
+            <li><b>Jul 2026</b><span>Rubricle</span><em>AI infra</em></li>
+            <li class="next"><b>Jan 2027</b><span>Super.com</span><em>Next</em></li>
+          </ol>
+          <p class="ph-note">Production sites, a live hospital network, then agent infrastructure. Super.com is next.</p>
+
+          <article class="ph-card">
+            <div class="ph-card-top"><h2>Incoming Software Engineering Intern, Infrastructure</h2><span class="ph-stamp">Jan–Apr 2027</span></div>
+            <p class="ph-org">Super.com · Toronto, ON</p>
+            <p>Joining the Infrastructure team for Winter 2027.</p>
+          </article>
+
+          <article class="ph-card">
+            <div class="ph-card-top"><h2>Network Engineering Intern</h2><span class="ph-stamp">May–Aug 2026</span></div>
+            <p class="ph-org">Waterloo Regional Health Network · Waterloo, ON</p>
+            <p class="ph-hits"><span>3 PB</span><span>Zero downtime</span><span>100+ stations</span><span>2 weeks</span></p>
+            <ul>
+              <li>Led a live hospital data-centre remediation, tracing and decommissioning <strong>500+ lbs</strong> of dead Ethernet and fibre across Cerner servers, Fortinet firewalls, and core routers in front of storage holding up to <strong>3 PB</strong> of clinical data, with <strong>zero downtime</strong>. Finished in two weeks against a one-month estimate.</li>
+              <li>Migrated <strong>100+</strong> staff workstations in a hospital-wide Windows 10 → 11 rollout, using IPv4 imaging from institutional image servers and bulk installs scripted in PowerShell and Bash.</li>
+              <li>Worked with senior security analysts on Fortinet firewalls, Cisco DNS filtering, Bell Cyber, and CrowdStrike SIEM. Mapped the full traffic path from endpoint to internet and compared corporate and guest Wi-Fi segmentation.</li>
+            </ul>
+          </article>
+
+          <article class="ph-card">
+            <div class="ph-card-top"><h2>AI Engineer</h2><span class="ph-stamp">Jul 2026 – Present</span></div>
+            <p class="ph-org">Rubricle · AI startup · Remote</p>
+            <ul>
+              <li>Engineered a layered persona, task, and audit prompt architecture for an autonomous LLM agent built on Hermes Agent, for personalized outreach with a consistent tone.</li>
+              <li>Architected and deployed a Dockerized agent pipeline that wires Hermes Agent to ScrapeGraph for web data enrichment and to n8n for workflow orchestration, with persistent volumes.</li>
+              <li>Deployed a multi-profile Hermes gateway with isolated routing and per-profile auth. Port exposure is restricted to the n8n Docker gateway, while <code>/p/&lt;profile&gt;/</code> API access runs through a single port.</li>
+            </ul>
+          </article>
+
+          <article class="ph-card">
+            <div class="ph-card-top"><h2>Software Engineer</h2><span class="ph-stamp">May – Dec 2025</span></div>
+            <p class="ph-org">PixelsBoost · Milton, ON</p>
+            <p class="ph-hits"><span>$10K+/mo</span><span>1,500+ users</span><span>99% uptime</span><span>40% faster</span></p>
+            <ul>
+              <li>Engineered <strong>6</strong> production full-stack websites in React and JavaScript with Stripe, Google Maps, and SendGrid, processing <strong>$10K+ USD</strong> in payments a month for <strong>1,500+</strong> monthly active users at <strong>99%</strong> uptime.</li>
+              <li>Delivered 5 client projects at the same time in an agile team: 200+ commits across 20+ feature branches, 2 designers mentored, and 15+ merge conflicts resolved.</li>
+              <li>Drove a <strong>40%</strong> performance gain with WebP, lazy loading, and Cloudflare CDN, raising Lighthouse scores from 65 to 86 and cutting bounce rate by 15%.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="ph-panel" data-ph="projects" aria-label="Projects">
+        <div class="ph-scroll">
+          <header class="ph-head"><span class="ransom" data-ransom="PROJECTS"></span></header>
+          <p class="ph-label"><i></i>Featured</p>
+          <div id="ph-feat"></div>
+          <p class="ph-label"><i></i>More on GitHub</p>
+          <p id="ph-repo-status">Contacting GitHub…</p>
+          <div id="ph-repos"></div>
+        </div>
+      </section>
+
+      <section class="ph-panel" data-ph="lab" aria-label="Lab">
+        <div class="ph-scroll">
+          <header class="ph-head"><span class="ransom" data-ransom="LAB"></span></header>
+          <p class="ph-label"><i></i>Now building</p>
+          <a class="ph-poster" href="https://github.com/Zainulabdin007/Strata" target="_blank" rel="noopener">
+            <img class="ph-shot" src="assets/lab/strata.jpg" alt="Compressed data columns collapsing into dense blocks" loading="lazy">
+            <span>Rust</span><h2>Strata</h2>
+            <p>179 million Nasdaq records. 10% smaller than Parquet, and 2.6× faster to ingest.</p>
+          </a>
+          <a class="ph-poster" href="https://github.com/Zainulabdin007/apex" target="_blank" rel="noopener">
+            <img class="ph-shot" src="assets/lab/apex.jpg" alt="Two forces colliding into a single mark" loading="lazy">
+            <span>C++</span><h2>Apex</h2>
+            <p>A price-time priority matching engine, fed by a synthetic order stream.</p>
+          </a>
+          <a class="ph-poster" href="https://github.com/Zainulabdin007/Frame_IDE/releases/latest" target="_blank" rel="noopener">
+            <img class="ph-shot" src="assets/lab/frame.jpg" alt="A code editor wired to an on-device chip" loading="lazy">
+            <span>TypeScript</span><h2>Frame</h2>
+            <p>Installable IDE builds. The 4-bit model installs from inside the app.</p>
+          </a>
+          <p class="ph-label"><i></i>On the bench</p>
+          <article class="ph-card">
+            <h2>CPU &amp; memory</h2>
+            <p>Hand-written C++ on a 64 GB Apple Silicon MacBook Pro.</p>
+            <ul>
+              <li>Single-thread throughput</li>
+              <li>Multithreaded integers</li>
+              <li>Floating point</li>
+              <li>Memory bandwidth</li>
+              <li>Stress runs</li>
+            </ul>
+          </article>
+          <article class="ph-card">
+            <h2>A 7B model, three sizes</h2>
+            <p>How much memory the coding model actually takes.</p>
+            <div class="ph-bars">
+              <div><b>4.7</b><span>GB · 4-bit</span><i style="--w:32%"></i></div>
+              <div><b>8.1</b><span>GB · 8-bit</span><i style="--w:54%"></i></div>
+              <div><b>15</b><span>GB · FP16</span><i style="--w:100%"></i></div>
+            </div>
+          </article>
+          <article class="ph-card">
+            <h2>Housing model</h2>
+            <p class="ph-rmse"><b>49,686</b><span>RMSE</span></p>
+            <p>Random Forest, MLflow, exported to ONNX.</p>
+            <a class="ph-link" href="https://github.com/Zainulabdin007/end-to-end_ml_pipeline" target="_blank" rel="noopener">GitHub ↗</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="ph-panel" data-ph="skills" aria-label="Skills">
+        <div class="ph-scroll">
+          <header class="ph-head"><span class="ransom" data-ransom="SKILLS"></span></header>
+          <div id="ph-skills"></div>
+        </div>
+      </section>
+
+      <section class="ph-panel" data-ph="stats" aria-label="Stats">
+        <div class="ph-scroll">
+          <header class="ph-head"><span class="ransom" data-ransom="STATS"></span></header>
+          <article class="ph-file">
+            <img class="ph-shot" src="assets/stats/math.jpg" alt="A cracked compass cut by a red slash" loading="lazy">
+            <span>University of Waterloo · QS 2026</span>
+            <h2>29th in the world for mathematics.</h2>
+            <p>Focused on tech. Playing an ungodly amount of games.</p>
+          </article>
+          <article class="ph-stat">
+            <img class="ph-shot" src="assets/stats/awards.jpg" alt="Award ribbons and a star medal" loading="lazy">
+            <div><b>11</b><h2>Awards</h2><p>Academic awards over the years.</p></div>
+          </article>
+          <article class="ph-stat">
+            <img class="ph-shot" src="assets/stats/games.jpg" alt="A game controller split by a red slash" loading="lazy">
+            <div><b>Pro</b><h2>Games</h2><p>Played Fortnite professionally. Still an ungodly amount on top of that.</p></div>
+          </article>
+          <article class="ph-stat">
+            <img class="ph-shot" src="assets/stats/anime.jpg" alt="Stylized sharp eyes in red and black" loading="lazy">
+            <div><b>A ton</b><h2>Anime</h2><p>Watched a ton of anime.</p></div>
+          </article>
+          <article class="ph-stat">
+            <img class="ph-shot" src="assets/stats/build.jpg" alt="Stacked project windows cut by a red slash" loading="lazy">
+            <div><b>A lot</b><h2>Projects</h2><p>Building constantly. Frame, Strata, and whatever is next.</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="ph-panel" data-ph="about" aria-label="About">
+        <div class="ph-scroll">
+          <header class="ph-head"><span class="ransom" data-ransom="ABOUT"></span></header>
+          <figure class="ph-photo">
+            <img src="assets/zain.jpg" alt="Zain Bughio" width="675" height="900" loading="lazy">
+            <figcaption>Zain Bughio</figcaption>
+          </figure>
+          <p class="ph-lede">I'm Zain, a Math student at the <strong>University of Waterloo</strong> who builds systems end to end, from network cables to model weights.</p>
+          <p>I'm double-majoring in Applied Mathematics (Scientific Machine Learning) and Statistics, graduating in <span class="ph-stamp">2029</span>. In January I join <strong>Super.com</strong> as a Software Engineering Intern on the Infrastructure team.</p>
+          <p>I've shipped production sites that process <strong>$10K+</strong> a month for 1,500+ users. I've worked directly inside a live hospital data centre, on the network in front of 3 PB of clinical data, with zero downtime. I've also deployed containerized AI agent infrastructure for an AI startup.</p>
+          <p>Outside work I build the things I want to exist. <a href="https://frameide.vercel.app/" target="_blank" rel="noopener">Frame</a> is a private AI coding IDE that runs and fine-tunes its own model on your machine. <a href="https://github.com/Zainulabdin007/Strata" target="_blank" rel="noopener">Strata</a> is a Rust storage engine that beats Parquet on size and ingests 2.6× faster.</p>
+          <p>Off the clock I'm into anime, the gym, and video games. I've played Fortnite professionally. <button type="button" data-ph-go="stats">See my stats ↗</button></p>
+          <ul class="ph-facts">
+            <li><span>Focus</span>Infrastructure · Backend · AI systems</li>
+            <li><span>Next</span>Super.com, Winter 2027</li>
+            <li><span>Code</span><a href="https://github.com/Zainulabdin007" target="_blank" rel="noopener">GitHub ↗</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="ph-panel" data-ph="contact" aria-label="Contact">
+        <div class="ph-scroll">
+          <header class="ph-head"><span class="ransom" data-ransom="CONTACT"></span></header>
+          <p class="ph-lede">I'm building a lot right now.</p>
+          <p>Local AI, storage engines, infrastructure. If you're working on something ambitious, want to collaborate, or have a role in mind, reach out.</p>
+          <a class="ph-email" href="mailto:Zainulabdinbughio410@gmail.com">Email me ↗</a>
+          <a class="ph-cv" href="assets/cv/Zain_Bughio_Resume.pdf" target="_blank" rel="noopener">View résumé ↗</a>
+          <div class="ph-chips">
+            <a href="https://www.linkedin.com/in/zain-bughio-869586367/" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://github.com/Zainulabdin007" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://www.instagram.com/zainulabdin_bughio" target="_blank" rel="noopener">Instagram ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="ph-panel" data-ph="credits" aria-label="Credits">
+        <div class="ph-scroll">
+          <header class="ph-head"><span class="ransom" data-ransom="CREDITS"></span></header>
+          <p class="ph-lede">This is an unofficial fan portfolio. It is not affiliated with, endorsed by, or sponsored by Atlus or Sega.</p>
+          <p>Persona 5, Persona 3 Reload, and the characters, logos, menu artwork, and interface elements shown here are the property of <strong>Atlus Co., Ltd.</strong> and <strong>Sega Corporation</strong>. © ATLUS. © SEGA. All rights reserved. Naming the owners is attribution. It is not a license, and no ownership is claimed over that artwork.</p>
+          <h2 class="ph-sub">Where the menus came from</h2>
+          <ul class="ph-credits">
+            <li><span>Persona 5</span><a href="https://github.com/Omicron69/persona5-style-portfolio" target="_blank" rel="noopener">Meraj Rahman · persona5-style-portfolio ↗</a></li>
+            <li><span>Persona 3</span><a href="https://github.com/Numal400/Persona_style_portfolio" target="_blank" rel="noopener">Numal Das · Persona_style_portfolio ↗</a></li>
+          </ul>
+          <p>The photograph, résumé, and project screenshots are Zain Bughio's. The stat and lab posters were drawn for this site.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="ph-frame" id="ph-frame" aria-label="Frame deep dive" hidden>
+      <div class="ph-scroll">
+        <button class="ph-back" type="button" data-ph-close>◀ Projects</button>
+        <header class="ph-head"><span class="ransom" data-ransom="FRAME"></span></header>
+        <p class="ph-lede">An AI coding IDE where the model, the memory, and the training all run on your machine.</p>
+        <p>Frame is a desktop IDE with its own on-device agent stack. It assembles context from what it knows about your project, runs Qwen2.5-Coder-7B locally through llama.cpp, and learns your style over time. Nothing goes to a cloud API.</p>
+        <div class="ph-chips">
+          <a href="https://frameide.vercel.app/" target="_blank" rel="noopener">Site ↗</a>
+          <a href="https://github.com/Zainulabdin007/Frame_IDE" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <p class="ph-label"><i></i>The stack, top to bottom</p>
+        <ol class="ph-stack">
+          <li><b>07</b><div><h2>Distribution</h2><p>IDE builds published to GitHub Releases. Models install from inside the app, never silently.</p></div></li>
+          <li><b>06</b><div><h2>Training &amp; personalization</h2><p>MLX QLoRA fine-tuning, fused and quantized to Q4 GGUF. Approved preferences schedule an on-device LoRA job.</p></div></li>
+          <li><b>05</b><div><h2>Inference worker</h2><p>An isolated process runs GGUF weights with node-llama-cpp and Metal on Apple Silicon. The editor never loads tensors.</p></div></li>
+          <li><b>04</b><div><h2>Agent protocol</h2><p>Sandboxed workspace tools, validated edit plans with apply and undo, and token streaming into chat.</p></div></li>
+          <li><b>03</b><div><h2>Context assembly</h2><p>Multi-tier memory, a per-project RAG index, a workspace knowledge graph, and approved preferences.</p></div></li>
+          <li><b>02</b><div><h2>Intelligence control plane</h2><p>An orchestrator routes each task into context and runtime. A sidebar manages models, hardware, and learning.</p></div></li>
+          <li><b>01</b><div><h2>IDE shell</h2><p>A full desktop editor branded as Frame, with telemetry and auto-updates off by default.</p></div></li>
+        </ol>
+        <article class="ph-card">
+          <h2>One chat turn</h2>
+          <ol>
+            <li>Message enters the Frame chat agent</li>
+            <li>Orchestrator pulls memory, RAG, graph, and preferences</li>
+            <li>Request forks to the local inference worker</li>
+            <li>llama.cpp generates over GGUF, optionally with LoRA</li>
+            <li>Tokens and tool calls stream back over IPC</li>
+            <li>Edit plans are validated, then applied to the workspace</li>
+          </ol>
+        </article>
+        <article class="ph-card">
+          <h2>Hard rules</h2>
+          <ul>
+            <li>Local-only AI path, with no cloud inference clients</li>
+            <li>No silent weight downloads</li>
+            <li>Model weights stay outside the UI process</li>
+            <li>Learned preferences need a human's approval</li>
+            <li>Tools are sandboxed to the workspace</li>
+            <li>Telemetry and updates are off by default</li>
+          </ul>
+        </article>
+        <p class="ph-label"><i></i>Hardware-aware editions</p>
+        <div class="ph-editions">
+          <div><span>Efficient</span><b>Q4</b><p>Fused 4-bit agent model. The default, shipped path.</p></div>
+          <div><span>Professional</span><b>Q8</b><p>8-bit for machines with more memory headroom.</p></div>
+          <div><span>Maximum</span><b>FP16</b><p>Full precision for high-memory workstations.</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="ph-dock">
+    <button type="button" id="ph-prev" aria-label="Previous">◀</button>
+    <button type="button" id="ph-home" aria-label="Apps">◆</button>
+    <div class="ph-dock-mid">
+      <b id="ph-label">Apps</b>
+      <span id="ph-count">Swipe</span>
+    </div>
+    <button type="button" id="ph-next" aria-label="Next">▶</button>
+  </footer>
+</div>
+
 <!-- MVC: model = data, view = DOM, controller = events -->
 <script src="js/model.js" defer></script>
 <script src="js/view.js" defer></script>
 <script src="js/controller.js" defer></script>
+<script src="js/phone.js" defer></script>
 </body>
 </html>
