@@ -33,6 +33,9 @@ const View = {
     this.startClock();
     this.startParallax();
     this.startCursor();
+    document.addEventListener("visibilitychange", () => {
+      document.documentElement.classList.toggle("page-hidden", document.hidden);
+    });
     document.body.classList.add("loaded");
   },
 
@@ -213,53 +216,100 @@ const View = {
     if (this.reducedMotion) return;
     const stripes = document.getElementById("bg-stripes");
     const halftone = document.getElementById("bg-halftone");
-    const arts = [...document.querySelectorAll(".menu-art")];
-    let tx = 0, ty = 0, cx = 0, cy = 0;
-    addEventListener("mousemove", e => {
-      tx = e.clientX / innerWidth - 0.5;
-      ty = e.clientY / innerHeight - 0.5;
-    }, { passive: true });
+    let tx = 0, ty = 0, cx = 0, cy = 0, running = false, shown = null;
+
+    const artForScreen = () => {
+      const screen = document.body.dataset.screen;
+      if (!{ home: 1, projects: 1, skills: 1, about: 1, contact: 1 }[screen]) return null;
+      const p3 = document.documentElement.dataset.theme === "p3";
+      if (p3 && screen === "projects") return null;
+      return document.getElementById("art-" + screen + (p3 ? "-p3" : ""));
+    };
+
+    const paint = () => {
+      stripes.style.transform = `translate3d(${cx * 22}px, ${cy * 14}px, 0)`;
+      halftone.style.transform = `translate3d(${cx * -34}px, ${cy * -22}px, 0)`;
+      const art = artForScreen();
+      if (shown && shown !== art) shown.style.transform = "";
+      shown = art;
+      if (art && art.isConnected)
+        art.style.transform = `translate3d(${cx * 14}px, ${cy * 9}px, 0) scale(1.04)`;
+    };
+
     const loop = () => {
-      cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
-      stripes.style.transform = `translate(${cx * 22}px, ${cy * 14}px)`;
-      halftone.style.transform = `translate(${cx * -34}px, ${cy * -22}px)`;
-      arts.forEach(a => {
-        if (a.isConnected)
-          a.style.transform = `translate(${cx * 14}px, ${cy * 9}px) scale(1.04)`;
-      });
+      if (document.hidden) { running = false; return; }
+      const dx = tx - cx, dy = ty - cy;
+      if (Math.abs(dx) < 0.001 && Math.abs(dy) < 0.001) {
+        cx = tx; cy = ty;
+        paint();
+        running = false;
+        return;
+      }
+      cx += dx * 0.06;
+      cy += dy * 0.06;
+      paint();
       requestAnimationFrame(loop);
     };
-    loop();
+
+    addEventListener("pointermove", e => {
+      tx = e.clientX / innerWidth - 0.5;
+      ty = e.clientY / innerHeight - 0.5;
+      if (document.hidden || running) return;
+      running = true;
+      requestAnimationFrame(loop);
+    }, { passive: true });
+
+    const restyle = () => { if (!running) paint(); };
+    new MutationObserver(restyle).observe(document.body, {
+      attributes: true, attributeFilter: ["data-screen"],
+    });
+    new MutationObserver(restyle).observe(document.documentElement, {
+      attributes: true, attributeFilter: ["data-theme"],
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) running = false;
+    });
   },
 
-  // 30-frame sprite-strip cursor extracted from the original .ani files
+  // 30-frame sprite-strip cursor. Position updates once per pointer move.
+  // The sprite only advances while the pointer is moving, then stops.
   startCursor() {
     if (!matchMedia("(pointer:fine)").matches || this.reducedMotion) return;
     const cur = this.els.cursor;
     document.body.classList.add("cursor-on");
-    let x = -100, y = -100, frame = 0, last = 0, visible = false;
+    let x = -100, y = -100, frame = 0, visible = false, queued = false, sprite = 0, idle = 0;
 
-    addEventListener("mousemove", e => {
+    const stopSprite = () => { clearInterval(sprite); sprite = 0; clearTimeout(idle); };
+    const startSprite = () => {
+      if (sprite) return;
+      sprite = setInterval(() => {
+        frame = (frame + 1) % 30;
+        cur.style.backgroundPosition = -frame * 48 + "px 0";
+      }, 50);
+    };
+    const place = () => {
+      queued = false;
+      cur.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    };
+
+    addEventListener("pointermove", e => {
       x = e.clientX; y = e.clientY;
       if (!visible) { cur.style.display = "block"; visible = true; }
+      if (!document.hidden) startSprite();
+      clearTimeout(idle);
+      idle = setTimeout(stopSprite, 160);
       const t = e.target;
       const overLink = t.closest &&
         t.closest("a,button,.card,.menu-item,.back-hint,.contact-chip,#big-name");
       cur.classList.toggle("link", !!overLink);
+      if (!queued) { queued = true; requestAnimationFrame(place); }
     }, { passive: true });
 
     document.documentElement.addEventListener("mouseleave", () => {
-      cur.style.display = "none"; visible = false;
+      cur.style.display = "none"; visible = false; stopSprite();
     });
-
-    const tick = ts => {
-      if (ts - last >= 50) {                       // 50ms = original .ani frame rate
-        frame = (frame + 1) % 30; last = ts;
-        cur.style.backgroundPosition = -frame * 48 + "px 0";
-      }
-      cur.style.transform = `translate(${x}px, ${y}px)`;
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopSprite();
+    });
   },
 };

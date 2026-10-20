@@ -28,21 +28,25 @@ body{
 
 /* ============ BACKGROUND LAYERS ============ */
 #bg{position:fixed;inset:-6vmax;z-index:0;pointer-events:none;}
-.bg-layer{position:absolute;inset:0;will-change:transform;}
+.bg-layer{position:absolute;inset:0;}
 #bg-stripes{
   background:repeating-linear-gradient(115deg,
     var(--red) 0 46px, var(--red-deep) 46px 52px,
     var(--red) 52px 120px, var(--stripe) 120px 126px);
-  animation:stripeDrift 22s linear infinite;
 }
-@keyframes stripeDrift{from{background-position:0 0;}to{background-position:520px 0;}}
-#bg-halftone{
-  background-image:radial-gradient(circle, rgba(0,0,0,.35) 1.6px, transparent 1.7px);
+#bg-halftone{overflow:hidden;}
+.halftone-drift{
+  position:absolute;left:-18%;top:-18%;width:136%;height:136%;
+  background-image:radial-gradient(circle, rgba(0,0,0,.55) 1.5px, transparent 1.65px);
   background-size:14px 14px;
-  mix-blend-mode:multiply;
-  animation:halftoneDrift 30s linear infinite;
+  animation:halftoneDrift 28s linear infinite;
 }
-@keyframes halftoneDrift{from{background-position:0 0;}to{background-position:-140px 140px;}}
+@keyframes halftoneDrift{
+  from{transform:translate3d(0,0,0);}
+  to{transform:translate3d(-140px,140px,0);}
+}
+html.page-hidden .halftone-drift,
+html.page-hidden .bg-star{animation-play-state:paused;}
 #bg-vignette{
   background:radial-gradient(ellipse at 32% 40%, transparent 30%, rgba(0,0,0,.72) 100%);
 }
@@ -712,24 +716,24 @@ html[data-theme="p3"] #hero-art{opacity:0;transition:none;}
    Missing files remove themselves; the CSS stripes show through. */
 .menu-art{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:0;will-change:transform;pointer-events:none;
+  opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .55s ease;
 }
 body[data-screen="home"]     #art-home,
 body[data-screen="projects"] #art-projects,
 body[data-screen="skills"]   #art-skills,
 body[data-screen="about"]    #art-about,
-body[data-screen="contact"]  #art-contact{opacity:1;}
+body[data-screen="contact"]  #art-contact{opacity:1;visibility:visible;}
 html.theme-swap .menu-art{transition:none;}
 html[data-theme="p3"] body[data-screen="home"]     #art-home,
 html[data-theme="p3"] body[data-screen="projects"] #art-projects,
 html[data-theme="p3"] body[data-screen="skills"]   #art-skills,
 html[data-theme="p3"] body[data-screen="about"]    #art-about,
-html[data-theme="p3"] body[data-screen="contact"]  #art-contact{opacity:0;}
+html[data-theme="p3"] body[data-screen="contact"]  #art-contact{opacity:0;visibility:hidden;}
 html[data-theme="p3"] body[data-screen="home"]    #art-home-p3,
 html[data-theme="p3"] body[data-screen="skills"]  #art-skills-p3,
 html[data-theme="p3"] body[data-screen="about"]   #art-about-p3,
-html[data-theme="p3"] body[data-screen="contact"] #art-contact-p3{opacity:1;}
+html[data-theme="p3"] body[data-screen="contact"] #art-contact-p3{opacity:1;visibility:visible;}
 /* The stat and lab posters are red print art. Shift them into the blue palette. */
 html[data-theme="p3"] .file-hero img,
 html[data-theme="p3"] .file-card img,
@@ -827,5 +831,9 @@ body.has-art-home #big-name .ch:not(.box):not(.boxw){
   .cursor-mark{right:-34px;}
 }
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001s !important;transition-duration:.001s !important;}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
 }
