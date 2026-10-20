@@ -81,17 +81,21 @@
   .ph-tag strong{color:var(--accent);}
   .ph-apps{display:grid;grid-template-columns:1fr 1fr;gap:12px 10px;}
   .ph-app{
-    display:flex;flex-direction:column;justify-content:space-between;
-    min-height:78px;padding:8px 10px 10px;text-align:left;
+    display:grid;grid-template-columns:1fr 44px;grid-template-rows:auto 1fr;
+    align-items:stretch;min-height:88px;padding:8px 8px 10px 10px;text-align:left;
     background:#0b0b0d;color:#fff;border:0;cursor:pointer;
     box-shadow:5px 5px 0 var(--red);transform:rotate(var(--rot,0deg));
     -webkit-tap-highlight-color:transparent;
   }
-  .ph-app span{font-size:11px;letter-spacing:.18em;color:var(--red);font-weight:800;}
+  .ph-app span{font-size:11px;letter-spacing:.18em;color:var(--red);font-weight:800;align-self:start;}
   .ph-app b{
+    align-self:end;
     font-family:'Archivo Black','Arial Black',Impact,sans-serif;
-    font-size:clamp(16px,4.4vw,22px);line-height:1;letter-spacing:.02em;text-transform:uppercase;
+    font-size:clamp(15px,4vw,20px);line-height:1;letter-spacing:.02em;text-transform:uppercase;
   }
+  .ph-ico{grid-column:2;grid-row:1 / span 2;align-self:center;width:42px;height:42px;display:block;}
+  html[data-theme="p3"] .ph-ico.p5,
+  html:not([data-theme="p3"]) .ph-ico.p3{display:none;}
   .ph-app:active{transform:rotate(0deg) scale(.98);}
   .ph-hint{
     margin:16px 0 4px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
@@ -280,6 +284,7 @@
 @media (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 500px){
   .ph-apps{grid-template-columns:repeat(4,1fr);}
   .ph-app{min-height:64px;}
+  .ph-ico{width:32px;height:32px;}
   .ph-home .ransom{font-size:40px;}
   .ph-kicker,.ph-hint{display:none;}
 }
