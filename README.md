@@ -1,6 +1,6 @@
-# Persona-Style Portfolio — Meraj Rahman
+# Persona-Style Portfolio — Zain Bughio
 
-A Persona 5 menu-inspired portfolio, structured as Model–View–Controller.
+A Persona 5 menu-inspired portfolio for Zain Bughio, structured as Model–View–Controller.
 
 ## Structure
 
@@ -17,11 +17,11 @@ A Persona 5 menu-inspired portfolio, structured as Model–View–Controller.
     ├── cursors/          Animated cursor sprite strips (30 frames each)
     ├── menus/            per-screen backgrounds: home.jpg, skills.jpg, about.jpg,
     │                     contact.jpg (included) — add projects.jpg to complete the set
-    ├── cv/               your downloadable CV (linked from About + Contact)
+    ├── cv/               Zain_Bughio_Resume.pdf (linked from Contact)
     ├── hero.png          ← optional: extra art layered on the home screen
     ├── me.jpg            ← add: your photo for the About polaroid
     └── projects/         ← add: card thumbnails
-        ├── bsl.png, medcnn.png, gesture.png, rapidcheck.png   (featured)
+        ├── frame.png, flux.png, wanderers.png, cooptrack.png   (featured, optional)
         └── <RepoName>.png  (auto-matched to GitHub repos by exact name)
 ```
 

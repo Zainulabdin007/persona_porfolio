@@ -25,6 +25,9 @@ const View = {
       this.els.screens[s.id.replace("screen-", "")] = s;
     });
     this.els.menuItems = [...document.querySelectorAll(".menu-item")];
+    const theme = document.documentElement.dataset.theme === "p3" ? "p3" : "p5";
+    document.documentElement.dataset.theme = theme;
+    this.setThemeLabel(theme);
     document.querySelectorAll("[data-ransom]").forEach(el => this.ransomize(el));
     this.els.sfx.volume = 0.45;
     this.startClock();
@@ -76,14 +79,30 @@ const View = {
     this.els.menuItems.forEach((m, j) => m.classList.toggle("sel", j === index));
   },
 
-  // Diagonal wipe; calls swap() mid-way while the screen is covered
-  wipe(swap, done) {
+  setThemeLabel(theme) {
+    const btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    const current = theme === "p3" ? "p3" : "p5";
+    btn.dataset.pos = current;
+    const other = current === "p3" ? "Persona 5" : "Persona 3";
+    btn.setAttribute("aria-label", "Switch to " + other);
+    requestAnimationFrame(() => btn.classList.add("ready"));
+  },
+
+  // Diagonal wipe; calls swap() mid-way while the screen is covered.
+  // dir "left" sends the panes the other way, matching the theme switch.
+  wipe(swap, done, dir) {
     if (this.reducedMotion) { swap(); done(); return; }
     const w = this.els.wipe;
-    w.classList.remove("go"); void w.offsetWidth;  // restart animation
+    w.classList.remove("go", "to-left");
+    void w.offsetWidth;  // restart animation
+    if (dir === "left") w.classList.add("to-left");
     w.classList.add("go");
     setTimeout(swap, 340);
-    setTimeout(done, 720);
+    setTimeout(() => {
+      w.classList.remove("go", "to-left");
+      done();
+    }, 720);
   },
 
   /* ---------- Sound ---------- */
@@ -110,18 +129,29 @@ const View = {
   renderFeatured(list) {
     if (this.els.featGrid.childElementCount) return;
     list.forEach((f, i) => {
-      const a = document.createElement("a");
-      a.className = "card feat";
-      a.href = f.url; a.target = "_blank"; a.rel = "noopener";
-      a.style.setProperty("--tilt", ((this.hash(f.title) % 5) - 2) * 0.8 + "deg");
-      a.style.setProperty("--d", i * 70 + "ms");
-      a.innerHTML = `
-        ${this.cardThumb(f.img)}
+      const card = document.createElement("article");
+      card.className = "card feat" + (f.wide ? " wide" : "");
+      card.style.setProperty("--tilt", ((this.hash(f.title) % 5) - 2) * (f.wide ? 0.25 : 0.8) + "deg");
+      card.style.setProperty("--d", i * 70 + "ms");
+      const links = [
+        f.site && { href: f.site, label: f.live ? "Live ↗" : "Site ↗" },
+        f.repo && { href: f.repo, label: "GitHub ↗" },
+      ].filter(Boolean);
+      const actions = (f.dive ? `<a class="go dive" href="#" data-goto="${f.dive}">Deep dive →</a>` : "") +
+        links.map(link =>
+          `<a class="go" href="${link.href}" target="_blank" rel="noopener">${link.label}</a>`
+        ).join("");
+      const status = f.live
+        ? '<span class="status live"><span class="live-dot"></span>Live</span>'
+        : '<span class="status">Open source</span>';
+      card.innerHTML = `
+        ${f.img ? this.cardThumb(f.img) : ""}
         <span class="lang" style="--lc:${f.color}">${f.tag}</span>
-        <h3>${f.live ? '<span class="live-dot"></span>' : ""}${this.splitTitle(f.title)}</h3>
+        <h3><a href="${links[0].href}" target="_blank" rel="noopener">${this.splitTitle(f.title)}</a></h3>
         <p>${f.desc}</p>
-        <div class="meta"><span>${f.live ? "LIVE NOW" : "HIGHLIGHT"}</span><span class="go">${f.cta}</span></div>`;
-      this.els.featGrid.appendChild(a);
+        <div class="stack">${f.stack}</div>
+        <div class="meta">${status}<span class="actions">${actions}</span></div>`;
+      this.els.featGrid.appendChild(card);
     });
   },
 
@@ -141,10 +171,10 @@ const View = {
         ${this.cardThumb(img)}
         <span class="lang">${r.language || "Repo"}</span>
         <h3>${this.splitTitle(pretty)}</h3>
-        <p>${r.description || "No description yet, but the code speaks for itself."}</p>
+        <p>${r.description || model.repoBlurbs[r.name] || "No description on GitHub yet."}</p>
         <div class="meta">
           <span>★ ${r.stargazers_count || 0}</span>
-          <span class="go">View on GitHub →</span>
+          <span class="go">GitHub ↗</span>
         </div>`;
       this.els.repoGrid.appendChild(a);
     });
@@ -156,32 +186,26 @@ const View = {
       const div = document.createElement("div");
       div.className = "skill-group";
       div.innerHTML = `<h3>${g.group}</h3>`;
-      g.items.forEach(([name, value]) => {
-        const row = document.createElement("div");
-        row.className = "skill-row";
-        row.innerHTML = `
-          <span class="name">${name}</span>
-          <div class="skill-bar"><div class="fill" data-v="${value}"></div></div>
-          <span class="lv">${value}</span>`;
-        div.appendChild(row);
+      const row = document.createElement("div");
+      row.className = "skill-chips";
+      g.items.forEach(name => {
+        const chip = document.createElement("span");
+        chip.className = "skill-chip";
+        chip.textContent = name;
+        row.appendChild(chip);
       });
+      div.appendChild(row);
       this.els.skillsBody.appendChild(div);
     });
-  },
-
-  animateSkillBars() {
-    const fills = this.els.skillsBody.querySelectorAll(".fill");
-    fills.forEach(f => { f.style.width = "0"; });
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      fills.forEach((f, i) => setTimeout(() => { f.style.width = f.dataset.v + "%"; }, i * 60));
-    }));
   },
 
   /* ---------- Ambient: clock, parallax, animated cursor ---------- */
   startClock() {
     setInterval(() => {
       this.els.clock.textContent =
-        new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + " · LDN";
+        new Date().toLocaleTimeString("en-CA", {
+          hour: "2-digit", minute: "2-digit", timeZone: "America/Toronto",
+        }) + " · ET";
     }, 1000);
   },
 

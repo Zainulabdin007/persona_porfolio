@@ -3,8 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MERAJ RAHMAN · PORTFOLIO</title>
+<title>ZAIN BUGHIO · PORTFOLIO</title>
+<meta name="description" content="Zain Bughio, University of Waterloo Math. Incoming Software Engineering Intern, Infrastructure at Super.com. Builds local AI systems, storage engines, and production infrastructure.">
+<link rel="canonical" href="https://zain-bughio.vercel.app/">
 <link rel="stylesheet" href="css/style.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "p3") document.documentElement.dataset.theme = "p3";
+    } catch (e) {}
+  })();
+</script>
 </head>
 <body data-screen="home">
 
@@ -19,15 +29,23 @@
   </svg>
   <!-- Per-screen menu artwork: assets/menus/<screen>.jpg
        Each falls back to the CSS stripes if its file is missing -->
-  <img class="menu-art" id="art-home" src="assets/menus/home.jpg" alt=""
+  <img class="menu-art theme-p5" id="art-home" src="assets/menus/home.jpg" alt=""
        onload="document.body.classList.add('has-art-home')" onerror="this.remove()">
-  <img class="menu-art" id="art-projects" src="assets/menus/projects.jpg" alt=""
+  <img class="menu-art theme-p5" id="art-projects" src="assets/menus/projects.jpg" alt=""
        onload="document.body.classList.add('has-art-projects')" onerror="this.remove()">
-  <img class="menu-art" id="art-skills" src="assets/menus/skills.jpg" alt=""
+  <img class="menu-art theme-p5" id="art-skills" src="assets/menus/skills.jpg" alt=""
        onload="document.body.classList.add('has-art-skills')" onerror="this.remove()">
-  <img class="menu-art" id="art-about" src="assets/menus/about.jpg" alt=""
+  <img class="menu-art theme-p5" id="art-about" src="assets/menus/about.jpg" alt=""
        onload="document.body.classList.add('has-art-about')" onerror="this.remove()">
-  <img class="menu-art" id="art-contact" src="assets/menus/contact.jpg" alt=""
+  <img class="menu-art theme-p5" id="art-contact" src="assets/menus/contact.jpg" alt=""
+       onload="document.body.classList.add('has-art-contact')" onerror="this.remove()">
+  <img class="menu-art theme-p3" id="art-home-p3" src="assets/menus/p3/home.jpg" alt=""
+       onload="document.body.classList.add('has-art-home')" onerror="this.remove()">
+  <img class="menu-art theme-p3" id="art-skills-p3" src="assets/menus/p3/skills.jpg" alt=""
+       onload="document.body.classList.add('has-art-skills')" onerror="this.remove()">
+  <img class="menu-art theme-p3" id="art-about-p3" src="assets/menus/p3/about.jpg" alt=""
+       onload="document.body.classList.add('has-art-about')" onerror="this.remove()">
+  <img class="menu-art theme-p3" id="art-contact-p3" src="assets/menus/p3/contact.jpg" alt=""
        onload="document.body.classList.add('has-art-contact')" onerror="this.remove()">
   <div class="bg-layer" id="bg-halftone"></div>
   <div class="bg-layer" id="bg-vignette"></div>
@@ -51,28 +69,43 @@
 
 <div id="shell">
   <div id="hud-top">
-    <div class="hud-tag">Portfolio // Meraj Rahman</div>
-    <div class="hud-tag alt">London · MSc Artificial Intelligence</div>
+    <div class="hud-tag">Portfolio // Zain Bughio</div>
+    <button id="theme-toggle" type="button" data-theme-toggle aria-label="Switch to Persona 3">
+      <span class="theme-knob" aria-hidden="true"></span>
+      <span class="theme-opt" data-side="p5">Persona 5</span>
+      <span class="theme-opt" data-side="p3">Persona 3</span>
+    </button>
+    <div class="hud-tag alt">Waterloo · BMath Co-op · 2029</div>
   </div>
 
   <div id="stage">
 
     <!-- HOME -->
     <section class="screen active" id="screen-home" aria-label="Main menu">
-      <div id="intro-eyebrow">Take a look at my work</div>
+      <div id="intro-eyebrow">University of Waterloo</div>
       <h1 id="big-name">
-        <span class="ransom" data-ransom="MERAJ"></span>
-        <span class="ransom" data-ransom="RAHMAN"></span>
+        <span class="ransom" data-ransom="ZAIN"></span>
+        <span class="ransom" data-ransom="BUGHIO"></span>
       </h1>
       <p id="tagline">
-       AI Engineer, full-stack developer, and MSc Artificial Intelligence student at Kingston University London. From browser-based real-time gesture recognition to scalable healthcare platforms, I transform heavy mathematical algorithms into engaging, accessible, and intuitive web experiences.
+        I build infrastructure, local AI systems, and storage engines.
+        Incoming <strong>Software Engineering Intern, Infrastructure</strong> at Super.com.
       </p>
       <nav id="menu" aria-label="Sections">
-        <button class="menu-item sel" data-target="projects">
+        <button class="menu-item sel" data-target="work">
+          <span class="ransom" data-ransom="WORK"></span><span class="cursor-mark">◀</span>
+        </button>
+        <button class="menu-item" data-target="projects">
           <span class="ransom" data-ransom="PROJECTS"></span><span class="cursor-mark">◀</span>
+        </button>
+        <button class="menu-item" data-target="lab">
+          <span class="ransom" data-ransom="LAB"></span><span class="cursor-mark">◀</span>
         </button>
         <button class="menu-item" data-target="skills">
           <span class="ransom" data-ransom="SKILLS"></span><span class="cursor-mark">◀</span>
+        </button>
+        <button class="menu-item" data-target="stats">
+          <span class="ransom" data-ransom="STATS"></span><span class="cursor-mark">◀</span>
         </button>
         <button class="menu-item" data-target="about">
           <span class="ransom" data-ransom="ABOUT"></span><span class="cursor-mark">◀</span>
@@ -80,7 +113,96 @@
         <button class="menu-item" data-target="contact">
           <span class="ransom" data-ransom="CONTACT"></span><span class="cursor-mark">◀</span>
         </button>
+        <button class="menu-item" data-target="credits">
+          <span class="ransom" data-ransom="CREDITS"></span><span class="cursor-mark">◀</span>
+        </button>
       </nav>
+    </section>
+
+    <!-- CREDITS (the page right after the contents menu) -->
+    <section class="screen sub" id="screen-credits" aria-label="Credits">
+      <div class="screen-head"><span class="ransom" data-ransom="CREDITS"></span></div>
+      <button class="back-hint" data-back>ESC · Back</button>
+      <div class="paper credits">
+        <p class="lede">This is an unofficial fan portfolio. It is not affiliated with, endorsed by, or sponsored by Atlus or Sega.</p>
+        <p>Persona 5, Persona 3 Reload, and the characters, logos, menu artwork, and interface elements shown here are the property of <strong>Atlus Co., Ltd.</strong> and <strong>Sega Corporation</strong>. © ATLUS. © SEGA. All rights reserved. Naming the owners is attribution. It is not a license, and no ownership is claimed over that artwork.</p>
+        <h3>Where the menus came from</h3>
+        <ul class="credit-list">
+          <li>
+            <span>Persona 5</span>
+            <a href="https://github.com/Omicron69/persona5-style-portfolio" target="_blank" rel="noopener">Meraj Rahman · persona5-style-portfolio ↗</a>
+          </li>
+          <li>
+            <span>Persona 3</span>
+            <a href="https://github.com/Numal400/Persona_style_portfolio" target="_blank" rel="noopener">Numal Das · Persona_style_portfolio ↗</a>
+          </li>
+        </ul>
+        <p>The photograph, résumé, and project screenshots are Zain Bughio's. The stat and lab posters were drawn for this site.</p>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="screen sub" id="screen-work" aria-label="Work">
+      <div class="screen-head"><span class="ransom" data-ransom="WORK"></span></div>
+      <button class="back-hint" data-back>ESC · Back</button>
+
+      <ol class="timeline" aria-label="Career timeline">
+        <li><span class="when">2025</span><span class="what">PixelsBoost</span><span class="role">Full-stack</span></li>
+        <li><span class="when">May 2026</span><span class="what">WRHN</span><span class="role">Network</span></li>
+        <li><span class="when">Jul 2026</span><span class="what">Rubricle</span><span class="role">AI infra</span></li>
+        <li class="next"><span class="when">Jan 2027</span><span class="what">Super.com</span><span class="role">Next</span></li>
+      </ol>
+      <p class="timeline-note">Production sites, a live hospital network, then agent infrastructure. Super.com is next.</p>
+
+      <article class="paper job">
+        <div class="job-top">
+          <h3>Incoming Software Engineering Intern, Infrastructure</h3>
+          <span class="stamp incoming">Jan–Apr 2027</span>
+        </div>
+        <p class="org">Super.com · Toronto, ON</p>
+        <p>Joining the Infrastructure team for Winter 2027.</p>
+      </article>
+
+      <article class="paper job">
+        <div class="job-top">
+          <h3>Network Engineering Intern</h3>
+          <span class="stamp">May–Aug 2026</span>
+        </div>
+        <p class="org">Waterloo Regional Health Network · Waterloo, ON</p>
+        <p class="hits"><span>3 PB</span><span>Zero downtime</span><span>100+ stations</span><span>2 weeks</span></p>
+        <ul>
+          <li>Led a live hospital data-centre remediation, tracing and decommissioning <strong>500+ lbs</strong> of dead Ethernet and fibre across Cerner servers, Fortinet firewalls, and core routers in front of storage holding up to <strong>3 PB</strong> of clinical data, with <strong>zero downtime</strong>. Finished in two weeks against a one-month estimate.</li>
+          <li>Migrated <strong>100+</strong> staff workstations in a hospital-wide Windows 10 → 11 rollout, using IPv4 imaging from institutional image servers and bulk installs scripted in PowerShell and Bash.</li>
+          <li>Worked with senior security analysts on Fortinet firewalls, Cisco DNS filtering, Bell Cyber, and CrowdStrike SIEM. Mapped the full traffic path from endpoint to internet and compared corporate and guest Wi-Fi segmentation.</li>
+        </ul>
+      </article>
+
+      <article class="paper job">
+        <div class="job-top">
+          <h3>AI Engineer</h3>
+          <span class="stamp">Jul 2026 – Present</span>
+        </div>
+        <p class="org">Rubricle · AI startup · Remote</p>
+        <ul>
+          <li>Engineered a layered persona, task, and audit prompt architecture for an autonomous LLM agent built on Hermes Agent, for personalized outreach with a consistent tone.</li>
+          <li>Architected and deployed a Dockerized agent pipeline that wires Hermes Agent to ScrapeGraph for web data enrichment and to n8n for workflow orchestration, with persistent volumes.</li>
+          <li>Deployed a multi-profile Hermes gateway with isolated routing and per-profile auth. Port exposure is restricted to the n8n Docker gateway, while <code>/p/&lt;profile&gt;/</code> API access runs through a single port.</li>
+        </ul>
+      </article>
+
+      <article class="paper job">
+        <div class="job-top">
+          <h3>Software Engineer</h3>
+          <span class="stamp">May – Dec 2025</span>
+        </div>
+        <p class="org">PixelsBoost · Milton, ON</p>
+        <p class="hits"><span>$10K+/mo</span><span>1,500+ users</span><span>99% uptime</span><span>40% faster</span></p>
+        <ul>
+          <li>Engineered <strong>6</strong> production full-stack websites in React and JavaScript with Stripe, Google Maps, and SendGrid, processing <strong>$10K+ USD</strong> in payments a month for <strong>1,500+</strong> monthly active users at <strong>99%</strong> uptime.</li>
+          <li>Delivered 5 client projects at the same time in an agile team: 200+ commits across 20+ feature branches, 2 designers mentored, and 15+ merge conflicts resolved.</li>
+          <li>Drove a <strong>40%</strong> performance gain with WebP, lazy loading, and Cloudflare CDN, raising Lighthouse scores from 65 to 86 and cutting bounce rate by 15%.</li>
+        </ul>
+      </article>
     </section>
 
     <!-- PROJECTS -->
@@ -89,9 +211,182 @@
       <button class="back-hint" data-back>ESC · Back</button>
       <div class="grid-label"><span class="bar"></span>Featured</div>
       <div id="feat-grid" class="grid"></div>
-      <div class="grid-label"><span class="bar"></span>All repositories</div>
+      <div class="grid-label"><span class="bar"></span>More on GitHub</div>
       <div id="repo-status">Contacting GitHub…</div>
       <div id="repo-grid" class="grid"></div>
+    </section>
+
+    <!-- FRAME DEEP DIVE (opened from the Frame card) -->
+    <section class="screen sub" id="screen-frame" aria-label="Frame deep dive" data-parent="projects">
+      <div class="screen-head"><span class="ransom" data-ransom="FRAME"></span></div>
+      <button class="back-hint" data-back-to="projects">ESC · Projects</button>
+
+      <div class="paper dive-intro">
+        <p class="lede">An AI coding IDE where the model, the memory, and the training all run on your machine.</p>
+        <p>Frame is a desktop IDE with its own on-device agent stack. It assembles context from what it knows about your project, runs Qwen2.5-Coder-7B locally through llama.cpp, and learns your style over time. Nothing goes to a cloud API.</p>
+        <div class="dive-links">
+          <a class="go-btn" href="https://frameide.vercel.app/" target="_blank" rel="noopener">Site ↗</a>
+          <a class="go-btn alt" href="https://github.com/Zainulabdin007/Frame_IDE" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="grid-label"><span class="bar"></span>The stack, top to bottom</div>
+      <ol class="stack-diagram">
+        <li><b>07</b><div><h4>Distribution</h4><p>IDE builds published to GitHub Releases. Models install from inside the app, never silently.</p></div></li>
+        <li><b>06</b><div><h4>Training &amp; personalization</h4><p>MLX QLoRA fine-tuning, fused and quantized to Q4 GGUF. Approved preferences schedule an on-device LoRA job.</p></div></li>
+        <li><b>05</b><div><h4>Inference worker</h4><p>An isolated process runs GGUF weights with node-llama-cpp and Metal on Apple Silicon. The editor never loads tensors.</p></div></li>
+        <li><b>04</b><div><h4>Agent protocol</h4><p>Sandboxed workspace tools, validated edit plans with apply and undo, and token streaming into chat.</p></div></li>
+        <li><b>03</b><div><h4>Context assembly</h4><p>Multi-tier memory, a per-project RAG index, a workspace knowledge graph, and approved preferences.</p></div></li>
+        <li><b>02</b><div><h4>Intelligence control plane</h4><p>An orchestrator routes each task into context and runtime. A sidebar manages models, hardware, and learning.</p></div></li>
+        <li><b>01</b><div><h4>IDE shell</h4><p>A full desktop editor branded as Frame, with telemetry and auto-updates off by default.</p></div></li>
+      </ol>
+
+      <div class="dive-cols">
+        <div class="paper">
+          <h4 class="dive-h">One chat turn</h4>
+          <ol class="flow">
+            <li>Message enters the Frame chat agent</li>
+            <li>Orchestrator pulls memory, RAG, graph, and preferences</li>
+            <li>Request forks to the local inference worker</li>
+            <li>llama.cpp generates over GGUF, optionally with LoRA</li>
+            <li>Tokens and tool calls stream back over IPC</li>
+            <li>Edit plans are validated, then applied to the workspace</li>
+          </ol>
+        </div>
+        <div class="paper">
+          <h4 class="dive-h">Hard rules</h4>
+          <ul class="rules">
+            <li>Local-only AI path, with no cloud inference clients</li>
+            <li>No silent weight downloads</li>
+            <li>Model weights stay outside the UI process</li>
+            <li>Learned preferences need a human's approval</li>
+            <li>Tools are sandboxed to the workspace</li>
+            <li>Telemetry and updates are off by default</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid-label"><span class="bar"></span>Hardware-aware editions</div>
+      <div class="editions">
+        <div><span>Efficient</span><b>Q4</b><p>Fused 4-bit agent model. The default, shipped path.</p></div>
+        <div><span>Professional</span><b>Q8</b><p>8-bit for machines with more memory headroom.</p></div>
+        <div><span>Maximum</span><b>FP16</b><p>Full precision for high-memory workstations.</p></div>
+      </div>
+    </section>
+
+    <!-- LAB -->
+    <section class="screen sub" id="screen-lab" aria-label="Lab">
+      <div class="screen-head"><span class="ransom" data-ransom="LAB"></span></div>
+      <button class="back-hint" data-back>ESC · Back</button>
+
+      <div class="grid-label"><span class="bar"></span>Now building</div>
+      <div class="lab-stage">
+        <a class="lab-poster" href="https://github.com/Zainulabdin007/Strata" target="_blank" rel="noopener">
+          <img src="assets/lab/strata.jpg" alt="Compressed data columns collapsing into dense blocks">
+          <div>
+            <span class="tag">Rust</span>
+            <h4>Strata</h4>
+            <p>179 million Nasdaq records. 10% smaller than Parquet, and 2.6× faster to ingest.</p>
+          </div>
+        </a>
+        <a class="lab-poster" href="https://github.com/Zainulabdin007/apex" target="_blank" rel="noopener">
+          <img src="assets/lab/apex.jpg" alt="Two forces colliding into a single mark">
+          <div>
+            <span class="tag">C++</span>
+            <h4>Apex</h4>
+            <p>A price-time priority matching engine, fed by a synthetic order stream.</p>
+          </div>
+        </a>
+        <a class="lab-poster" href="https://github.com/Zainulabdin007/Frame_IDE/releases/latest" target="_blank" rel="noopener">
+          <img src="assets/lab/frame.jpg" alt="A code editor wired to an on-device chip">
+          <div>
+            <span class="tag">TypeScript</span>
+            <h4>Frame</h4>
+            <p>Installable IDE builds. The 4-bit model installs from inside the app.</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="grid-label"><span class="bar"></span>On the bench</div>
+      <div class="lab-bench">
+        <article class="bench">
+          <h4>CPU &amp; memory</h4>
+          <p>Hand-written C++ on a 64 GB Apple Silicon MacBook Pro.</p>
+          <ul>
+            <li>Single-thread throughput</li>
+            <li>Multithreaded integers</li>
+            <li>Floating point</li>
+            <li>Memory bandwidth</li>
+            <li>Stress runs</li>
+          </ul>
+        </article>
+        <article class="bench quant-card">
+          <h4>A 7B model, three sizes</h4>
+          <p>How much memory the coding model actually takes.</p>
+          <div class="q-bars">
+            <div><b>4.7</b><span>GB · 4-bit</span><i style="--w:32%"></i></div>
+            <div><b>8.1</b><span>GB · 8-bit</span><i style="--w:54%"></i></div>
+            <div><b>15</b><span>GB · FP16</span><i style="--w:100%"></i></div>
+          </div>
+        </article>
+        <article class="bench result-card">
+          <h4>Housing model</h4>
+          <p class="rmse"><b>49,686</b><span>RMSE</span></p>
+          <p>Random Forest, MLflow, exported to ONNX.</p>
+          <a href="https://github.com/Zainulabdin007/end-to-end_ml_pipeline" target="_blank" rel="noopener">GitHub ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="screen sub" id="screen-stats" aria-label="Stats">
+      <div class="screen-head"><span class="ransom" data-ransom="STATS"></span></div>
+      <button class="back-hint" data-back>ESC · Back</button>
+
+      <div class="file">
+        <div class="file-hero">
+          <img src="assets/stats/math.jpg" alt="A cracked compass cut by a red slash">
+          <div>
+            <span class="file-kicker">University of Waterloo · QS 2026</span>
+            <h3>29th in the world for mathematics.</h3>
+            <p>Focused on tech. Playing an ungodly amount of games.</p>
+          </div>
+        </div>
+        <div class="file-grid">
+          <article class="file-card">
+            <img src="assets/stats/awards.jpg" alt="Award ribbons and a star medal">
+            <div>
+              <b>11</b>
+              <h4>Awards</h4>
+              <p>Academic awards over the years.</p>
+            </div>
+          </article>
+          <article class="file-card">
+            <img src="assets/stats/games.jpg" alt="A game controller split by a red slash">
+            <div>
+              <b>Pro</b>
+              <h4>Games</h4>
+              <p>Played Fortnite professionally. Still an ungodly amount on top of that.</p>
+            </div>
+          </article>
+          <article class="file-card">
+            <img src="assets/stats/anime.jpg" alt="Stylized sharp eyes in red and black">
+            <div>
+              <b>A ton</b>
+              <h4>Anime</h4>
+              <p>Watched a ton of anime.</p>
+            </div>
+          </article>
+          <article class="file-card">
+            <img src="assets/stats/build.jpg" alt="Stacked project windows cut by a red slash">
+            <div>
+              <b>A lot</b>
+              <h4>Projects</h4>
+              <p>Building constantly. Frame, Strata, and whatever is next.</p>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
     <!-- SKILLS -->
@@ -105,93 +400,39 @@
     <section class="screen sub align-right" id="screen-about" aria-label="About">
       <div class="screen-head"><span class="ransom" data-ransom="ABOUT"></span></div>
       <button class="back-hint" data-back>ESC · Back</button>
-      <div class="paper">
-        <!-- Profile photo: assets/me.jpg -->
+      <div class="paper about">
         <figure class="about-photo">
-          <img src="assets/me.jpg" alt="Meraj Rahman" onerror="this.parentElement.remove()">
-          <figcaption>Meraj · London</figcaption>
+          <img src="assets/zain.jpg" alt="Zain Bughio" width="675" height="900" loading="lazy">
+          <figcaption>Zain Bughio</figcaption>
         </figure>
-        <p class="quote">Mieko Kawakami wrote that <em>"people are strange... they know nothing
-        lasts forever, but still find time to laugh and cry and get upset, laboring over
-        things."</em> My job as an <strong>AI Engineer and full-stack developer</strong> is to
-        build software that respects that beautifully complex human reality.</p>
-        <br>
-        <p>I am a Computer Science graduate <span class="stamp">First-Class Honours</span>
-        currently specializing in machine learning and computer vision through an
-        <span class="stamp">MSc in Artificial Intelligence</span> at Kingston University London.
-        I combine mathematical precision with human-centered design, translating complex
-        algorithms into intuitive, enjoyable web applications. From building real-time browser
-        gesture recognition models that power a fun, Duolingo-style platform to learn the basics
-        of British Sign Language fingerspelling
-        (<a href="https://bslgame.co.uk" target="_blank" rel="noopener">bslgame.co.uk</a>),
-        to leading front-end development for stakeholder-focused healthcare data tracking
-        solutions, I specialize in making data pipelines leak-free, scalable, and accessible.
-        You can explore my technical repositories and live deployments at
-        <a href="https://github.com/Omicron69" target="_blank" rel="noopener">github.com/Omicron69</a>.</p>
-        <br>
-        <p>There is a genuine excitement that comes from understanding how other people live,
-        eat, and communicate. I thrive on learning about different cultures and food cuisines,
-        and getting to know the textured reality behind them is what keeps me curious about the
-        world. Growing up speaking English, Bengali, Hindi, and Urdu fluently, alongside
-        conversational Japanese, has shaped how I listen and connect with others. That same
-        grounding carried me through the heat of fast-paced hospitality kitchens and the
-        overwhelming energy of coordinating events for three thousand attendees. Those moments
-        taught me how to hold my composure, observe quietly, and bring real empathy and
-        analytical rigor to collaborative engineering teams. Whether I am laboring over the math
-        to train neural networks or studying audience retention metrics to grow my
-        <a href="https://youtu.be/_jaJ0xAY9j0?si=PH71cBIqgfGA99NV" target="_blank" rel="noopener">personal
-        YouTube channel</a> to two million views, I am always searching for the person on the
-        other side of the screen. I am driven by the belief that the best technology is built
-        not just for abstract users, but for living, breathing human beings.</p>
+        <p class="lede">I'm Zain, a Math student at the <strong>University of Waterloo</strong> who builds systems end to end, from network cables to model weights.</p>
+        <p>I'm double-majoring in Applied Mathematics (Scientific Machine Learning) and Statistics, graduating in <span class="stamp">2029</span>. In January I join <strong>Super.com</strong> as a Software Engineering Intern on the Infrastructure team.</p>
+        <p>I've shipped production sites that process <strong>$10K+</strong> a month for 1,500+ users. I've decommissioned a live hospital data centre in front of 3 PB of clinical data with zero downtime. I've also deployed containerized AI agent infrastructure for an AI startup.</p>
+        <p>Outside work I build the things I want to exist. <a href="https://frameide.vercel.app/" target="_blank" rel="noopener">Frame</a> is a private AI coding IDE that runs and fine-tunes its own model on your machine. <a href="https://github.com/Zainulabdin007/Strata" target="_blank" rel="noopener">Strata</a> is a Rust storage engine that beats Parquet on size and ingests 2.6× faster.</p>
+        <p>Off the clock I'm into anime, the gym, and video games. I've played Fortnite professionally. <a href="#" data-goto="stats">See my stats ↗</a></p>
+        <ul class="facts">
+          <li><span>Focus</span>Infrastructure · Backend · AI systems</li>
+          <li><span>Next</span>Super.com, Winter 2027</li>
+          <li><span>Code</span><a href="https://github.com/Zainulabdin007" target="_blank" rel="noopener">GitHub ↗</a></li>
+        </ul>
       </div>
-      <a class="cv-btn" href="assets/cv/Meraj_Rahman_CV_2026.pdf" download="Meraj_Rahman_CV_2026.pdf">
-        <span>⬇ Download my CV (PDF)</span>
-      </a>
     </section>
 
     <!-- CONTACT -->
     <section class="screen sub align-right" id="screen-contact" aria-label="Contact">
       <div class="screen-head"><span class="ransom" data-ransom="CONTACT"></span></div>
       <button class="back-hint" data-back>ESC · Back</button>
-      <div class="paper" style="max-width:620px">
-        <p>I'm open to <strong>graduate ML and software engineering roles</strong> and research
-        collaborations in AI. Drop me a message below and it goes straight to my inbox,
-        or find me on any of these:</p>
+      <div class="paper contact-card">
+        <p class="lede">I'm building a lot right now.</p>
+        <p>Local AI, storage engines, infrastructure. If you're working on something ambitious, want to collaborate, or have a role in mind, reach out.</p>
+        <a class="email-link" href="mailto:Zainulabdinbughio410@gmail.com">Email me ↗</a>
       </div>
+      <a class="cv-btn" href="assets/cv/Zain_Bughio_Resume.pdf" target="_blank" rel="noopener"><span>View résumé ↗</span></a>
       <div class="contact-list">
-        <a class="contact-chip" href="mailto:meraj.rahman777@gmail.com"><span>Email ✉</span></a>
-        <a class="contact-chip" href="https://www.linkedin.com/in/mohammed-meraj-rahman-b1908a131/" target="_blank" rel="noopener"><span>LinkedIn ↗</span></a>
-        <a class="contact-chip" href="https://github.com/Omicron69" target="_blank" rel="noopener"><span>GitHub ↗</span></a>
-        <a class="contact-chip" href="https://www.youtube.com/@MezRahman777" target="_blank" rel="noopener"><span>YouTube ↗</span></a>
-        <a class="contact-chip" href="https://www.instagram.com/meraz.rah" target="_blank" rel="noopener"><span>Instagram ↗</span></a>
-        <a class="contact-chip" href="https://bslgame.co.uk/" target="_blank" rel="noopener"><span>BSL Game ↗</span></a>
-        <a class="contact-chip" href="assets/cv/Meraj_Rahman_CV_2026.pdf" download="Meraj_Rahman_CV_2026.pdf"><span>CV ⬇</span></a>
+        <a class="contact-chip" href="https://www.linkedin.com/in/zain-bughio-869586367/" target="_blank" rel="noopener"><span>LinkedIn ↗</span></a>
+        <a class="contact-chip" href="https://github.com/Zainulabdin007" target="_blank" rel="noopener"><span>GitHub ↗</span></a>
+        <a class="contact-chip" href="https://www.instagram.com/zainulabdin_bughio" target="_blank" rel="noopener"><span>Instagram ↗</span></a>
       </div>
-
-      <!-- Message form — relayed to your inbox via formsubmit.co.
-           NOTE: the first-ever submission emails you a one-time activation link. -->
-      <form id="contact-form" class="paper" style="max-width:620px" novalidate>
-        <div class="form-head">Send me a message</div>
-        <label class="field">
-          <span>Name</span>
-          <input type="text" name="name" required maxlength="100" autocomplete="name">
-        </label>
-        <label class="field">
-          <span>Your email</span>
-          <input type="email" name="email" required maxlength="150" autocomplete="email">
-        </label>
-        <label class="field">
-          <span>Message</span>
-          <textarea name="message" required rows="5" maxlength="3000"></textarea>
-        </label>
-        <!-- honeypot: bots fill this, humans never see it -->
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off"
-               style="position:absolute;left:-5000px" aria-hidden="true">
-        <div class="form-foot">
-          <button type="submit" class="cv-btn form-send"><span>Send it ➤</span></button>
-          <div id="form-status" role="status"></div>
-        </div>
-      </form>
     </section>
 
   </div>

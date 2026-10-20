@@ -12,56 +12,11 @@ const Controller = {
     this.bindMenu();
     this.bindKeyboard();
     this.bindAudioUnlock();
-    this.bindContactForm();
-  },
-
-  /* ---------- Contact form (relayed via formsubmit.co, mailto fallback) ---------- */
-  bindContactForm() {
-    const form = document.getElementById("contact-form");
-    if (!form) return;
-    const status = document.getElementById("form-status");
-    const btn = form.querySelector(".form-send");
-
-    form.addEventListener("submit", async e => {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(form).entries());
-      if (data._honey) return;  // honeypot caught a bot
-      if (!data.name.trim() || !data.email.trim() || !data.message.trim()) {
-        status.textContent = "Fill in all three fields first.";
-        return;
-      }
-      btn.disabled = true;
-      status.textContent = "Sending…";
-      try {
-        const res = await fetch(`https://formsubmit.co/ajax/${Model.contactEmail}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            message: data.message,
-            _subject: `Portfolio message from ${data.name}`,
-          }),
-        });
-        if (!res.ok) throw new Error(res.status);
-        status.textContent = "Sent! I'll get back to you soon.";
-        form.reset();
-        this.play();
-      } catch {
-        // relay unreachable: open the visitor's own mail app instead
-        status.textContent = "Couldn't reach the relay, opening your email app instead…";
-        const subject = encodeURIComponent(`Portfolio message from ${data.name}`);
-        const body = encodeURIComponent(`${data.message}\n\nReply to: ${data.email}`);
-        location.href = `mailto:${Model.contactEmail}?subject=${subject}&body=${body}`;
-      } finally {
-        btn.disabled = false;
-      }
-    });
   },
 
   /* ---------- Navigation ---------- */
   goTo(screen) {
-    if (this.transitioning || screen === Model.state.screen) return;
+    if (this.transitioning || !screen || screen === Model.state.screen) return;
     this.transitioning = true;
     this.play();
 
@@ -73,6 +28,28 @@ const Controller = {
         if (screen === "skills") this.loadSkills();
       },
       () => { this.transitioning = false; }
+    );
+  },
+
+  toggleTheme() {
+    if (this.transitioning) return;
+    this.transitioning = true;
+    this.play();
+    const next = document.documentElement.dataset.theme === "p3" ? "p5" : "p3";
+    // Persona 5 sits on the left stop, Persona 3 on the right.
+    const dir = next === "p3" ? "right" : "left";
+    View.setThemeLabel(next);
+    document.documentElement.classList.add("theme-swap");
+    View.wipe(
+      () => {
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch (e) {}
+      },
+      () => {
+        document.documentElement.classList.remove("theme-swap");
+        this.transitioning = false;
+      },
+      dir
     );
   },
 
@@ -89,19 +66,15 @@ const Controller = {
     View.renderFeatured(Model.featured);
     if (Model.state.reposLoaded) return;
     const { repos, live } = await Model.fetchRepos();
-    const status = live
-      ? `${repos.length} repositories · live from GitHub`
-      : "Showing pinned work · GitHub API unavailable right now";
+    const status = live ? "Synced live from GitHub" : "Pinned repositories";
     View.renderRepos(repos, status, Model);
     Model.state.reposLoaded = true;
   },
 
   loadSkills() {
-    if (!Model.state.skillsBuilt) {
-      View.renderSkills(Model.skills);
-      Model.state.skillsBuilt = true;
-    }
-    View.animateSkillBars();
+    if (Model.state.skillsBuilt) return;
+    View.renderSkills(Model.skills);
+    Model.state.skillsBuilt = true;
   },
 
   /* ---------- Sound (browsers block audio until first user gesture) ---------- */
@@ -122,8 +95,19 @@ const Controller = {
       item.addEventListener("click", () => this.goTo(item.dataset.target));
     });
 
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle) themeToggle.addEventListener("click", () => this.toggleTheme());
+
     document.querySelectorAll("[data-back]").forEach(b =>
       b.addEventListener("click", () => this.goTo("home")));
+
+    // Cards render after load, so in-page links are delegated.
+    document.addEventListener("click", e => {
+      const link = e.target.closest("[data-goto], [data-back-to]");
+      if (!link) return;
+      e.preventDefault();
+      this.goTo(link.dataset.goto || link.dataset.backTo);
+    });
 
     // Clicking the name always takes you home
     document.getElementById("big-name").addEventListener("click", () => {
@@ -137,11 +121,12 @@ const Controller = {
       if (Model.state.screen === "home") {
         if (e.key === "ArrowDown") { this.select(Model.state.menuIndex + 1); e.preventDefault(); }
         else if (e.key === "ArrowUp") { this.select(Model.state.menuIndex - 1); e.preventDefault(); }
-        else if (e.key === "Enter") {
+        else if (e.key === "Enter" && !(e.target && e.target.closest && e.target.closest("#theme-toggle"))) {
           this.goTo(View.els.menuItems[Model.state.menuIndex].dataset.target);
         }
       } else if (e.key === "Escape") {
-        this.goTo("home");
+        const parent = View.els.screens[Model.state.screen].dataset.parent;
+        this.goTo(parent || "home");
       }
     });
   },
