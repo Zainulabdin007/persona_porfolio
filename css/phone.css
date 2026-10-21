@@ -9,6 +9,12 @@
        (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 500px){
 
   #shell,#slash,#hero-art,#cursor,#bg .menu-art{display:none !important;}
+  #audio-toggle{
+    bottom:calc(58px + max(10px, env(safe-area-inset-bottom)));
+    right:max(12px, env(safe-area-inset-right));
+    width:40px;height:40px;
+  }
+  #audio-toggle .audio-ico{width:20px;height:20px;}
   /* The home artwork marks the stripes as covered. On the phone the
      wallpaper is the stripes, so keep them moving. */
   body.art-covered #bg-stripes,

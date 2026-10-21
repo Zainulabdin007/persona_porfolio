@@ -79,13 +79,23 @@ const Controller = {
 
   /* ---------- Sound (browsers block audio until first user gesture) ---------- */
   play() {
-    if (this.audioUnlocked) View.playSelect();
+    if (this.audioUnlocked && !View.muted) View.playSelect();
   },
 
   bindAudioUnlock() {
     const unlock = () => { this.audioUnlocked = true; };
     addEventListener("pointerdown", unlock, { once: true, capture: true });
     addEventListener("keydown", unlock, { once: true, capture: true });
+
+    const muteBtn = document.getElementById("audio-toggle");
+    if (muteBtn) {
+      muteBtn.addEventListener("click", e => {
+        e.stopPropagation();
+        View.toggleMute();
+        this.audioUnlocked = true;
+        if (!View.muted) this.play();
+      });
+    }
   },
 
   /* ---------- Input bindings ---------- */

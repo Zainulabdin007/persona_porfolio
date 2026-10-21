@@ -18,7 +18,10 @@ const View = {
     sfx:        document.getElementById("sfx-select"),
     cursor:     document.getElementById("cursor"),
     clock:      document.getElementById("clock"),
+    audioToggle: document.getElementById("audio-toggle"),
   },
+
+  muted: false,
 
   init() {
     document.querySelectorAll(".screen").forEach(s => {
@@ -30,6 +33,8 @@ const View = {
     this.setThemeLabel(theme);
     document.querySelectorAll("[data-ransom]").forEach(el => this.ransomize(el));
     this.els.sfx.volume = 0.45;
+    try { this.muted = localStorage.getItem("audio-muted") === "1"; } catch (e) {}
+    this.applyMute(false);
     this.startClock();
     this.startParallax();
     this.startCursor();
@@ -37,6 +42,26 @@ const View = {
       document.documentElement.classList.toggle("page-hidden", document.hidden);
     });
     document.body.classList.add("loaded");
+  },
+
+  applyMute(animate) {
+    const btn = this.els.audioToggle;
+    if (!btn) return;
+    btn.classList.toggle("is-muted", this.muted);
+    btn.setAttribute("aria-pressed", this.muted ? "true" : "false");
+    btn.setAttribute("aria-label", this.muted ? "Unmute sound" : "Mute sound");
+    if (this.els.sfx) this.els.sfx.muted = this.muted;
+    if (animate && !this.reducedMotion) {
+      btn.classList.remove("audio-pop");
+      void btn.offsetWidth;
+      btn.classList.add("audio-pop");
+    }
+  },
+
+  toggleMute() {
+    this.muted = !this.muted;
+    try { localStorage.setItem("audio-muted", this.muted ? "1" : "0"); } catch (e) {}
+    this.applyMute(true);
   },
 
   // Deterministic pseudo-random hash (so letters look the same every visit)
@@ -110,6 +135,7 @@ const View = {
 
   /* ---------- Sound ---------- */
   playSelect() {
+    if (this.muted) return;
     try {
       this.els.sfx.currentTime = 0;
       const p = this.els.sfx.play();
